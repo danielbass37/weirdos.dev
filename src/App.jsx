@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Navbar from './components/layout/Navbar'
 import Conferences from './pages/Conferences'
-import ProductLaunches from './pages/ProductLaunches'
+import Home from './pages/Home'
 import PaidAdvertising from './pages/PaidAdvertising'
+import ProductLaunches from './pages/ProductLaunches'
 import './styles/App.css'
 
 function App() {
@@ -25,4 +25,4 @@ function App() {
   )
 }
 
-export default App 
+export default App

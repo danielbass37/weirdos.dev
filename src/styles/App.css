@@ -400,6 +400,8 @@ body::-webkit-scrollbar {
 
 .what-do-slide .scroll-arrow {
   color: #CB90ED;
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
 }
 
 .who-are-slide .scroll-arrow {
@@ -516,38 +518,307 @@ body::-webkit-scrollbar {
 
 /* What Do Weirdos Do Slide */
 .what-do-slide {
-  background: #F8F0D8;
+  background: linear-gradient(135deg, #F8F0D8 0%, #F5EDD1 50%, #F2E9C8 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.what-do-slide .slide-title {
-  color: #CB90ED !important;
-  background: none !important;
-  -webkit-text-fill-color: #CB90ED !important;
-  font-size: clamp(3rem, 8vw, 6rem);
-  text-align: left;
-  margin-bottom: 0.5rem;
-  margin-left: var(--spacing-lg);
-  letter-spacing: 0.01em;
+.what-do-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(203, 144, 237, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(203, 144, 237, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(220, 240, 30, 0.05) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .what-do-slide .slide-content {
+  position: relative;
+  z-index: 1;
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
 }
 
+.what-do-slide .slide-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.what-do-slide .slide-title {
+  color: #CB90ED !important;
+  background: linear-gradient(135deg, #CB90ED 0%, #9B6BC7 50%, #CB90ED 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-size: clamp(3.2rem, 7.5vw, 6rem);
+  text-align: left;
+  margin-bottom: 0.4rem;
+  margin-left: var(--spacing-lg);
+  letter-spacing: 0.015em;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(203, 144, 237, 0.3);
+  filter: drop-shadow(0 2px 8px rgba(203, 144, 237, 0.2));
+}
+
+.what-do-slide .slide-subtitle {
+  color: #0D0106 !important;
+  margin-left: var(--spacing-lg);
+  font-weight: 600;
+  text-align: left;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  letter-spacing: 0.005em;
+  max-width: 85%;
+  line-height: 1.15;
+  margin-bottom: var(--spacing-md);
+}
+
+.what-do-slide .slide-subtitle .prompt-symbol {
+  color: #CB90ED !important;
+  font-family: 'Courier New', monospace;
+}
+
+.what-do-slide .services-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  margin-left: var(--spacing-lg);
+  justify-items: start;
+  align-items: start;
+}
+
+.what-do-slide .services-showcase .service-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.what-do-slide .services-showcase .service-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.what-do-slide .services-showcase .service-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
 .what-do-slide .service-card {
-  background: var(--surface-color);
-  color: #0D0106;
+  background: linear-gradient(135deg, rgba(203, 144, 237, 0.12) 0%, rgba(248, 240, 216, 0.98) 40%, rgba(220, 240, 30, 0.05) 100%);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(203, 144, 237, 0.25);
+  border-radius: 24px;
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow:
+    0 8px 32px rgba(203, 144, 237, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  min-height: auto;
+  transform: translateY(0) scale(1);
+}
+
+.what-do-slide .service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #CB90ED 0%, #DCF01E 50%, #CB90ED 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.what-do-slide .service-card:hover {
+  transform: translateY(-16px) scale(1.02) rotate(0.5deg);
+  border-color: #CB90ED;
+  box-shadow:
+    0 24px 60px rgba(203, 144, 237, 0.25),
+    0 12px 30px rgba(220, 240, 30, 0.1),
+    0 8px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.what-do-slide .service-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(203, 144, 237, 0.15), rgba(220, 240, 30, 0.12));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.what-do-slide .service-card:hover .service-hover-effect {
+  opacity: 1;
+}
+
+.what-do-slide .service-icon {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.what-do-slide .icon-wrapper {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #CB90ED 0%, #9B6BC7 50%, #DCF01E 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 24px rgba(203, 144, 237, 0.4),
+    0 4px 12px rgba(220, 240, 30, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.what-do-slide .icon-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #CB90ED, #DCF01E);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.what-do-slide .service-card:hover .icon-wrapper {
+  transform: scale(1.15) rotate(8deg);
+  box-shadow:
+    0 12px 36px rgba(203, 144, 237, 0.5),
+    0 6px 18px rgba(220, 240, 30, 0.3);
+}
+
+.what-do-slide .service-card:hover .icon-wrapper::before {
+  opacity: 0.3;
 }
 
 .what-do-slide .service-card h3 {
   color: #0D0106 !important;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.025em;
+  text-align: left;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .what-do-slide .service-card p {
-  color: #0D0106 !important;
+  color: #4A4A4A !important;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-sm);
+  text-align: left;
+}
+
+.what-do-slide .service-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: flex-start;
+}
+
+.what-do-slide .feature-tag {
+  background: linear-gradient(135deg, rgba(203, 144, 237, 0.1), rgba(155, 107, 199, 0.1));
+  color: #CB90ED;
+  padding: 0.25rem 0.5rem;
+  border-radius: 16px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid rgba(203, 144, 237, 0.3);
+  transition: all 0.3s ease;
+}
+
+.what-do-slide .service-card:hover .feature-tag {
+  background: linear-gradient(135deg, rgba(203, 144, 237, 0.2), rgba(155, 107, 199, 0.2));
+  border-color: #CB90ED;
+  transform: translateY(-1px);
+}
+
+.what-do-slide .services-stats {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  margin-left: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.what-do-slide .stat-item {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 240, 216, 0.8) 100%);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  border: 2px solid rgba(203, 144, 237, 0.3);
+  min-width: 110px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.what-do-slide .stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #CB90ED, #DCF01E);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.what-do-slide .stat-item:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow:
+    0 12px 30px rgba(203, 144, 237, 0.25),
+    0 6px 15px rgba(220, 240, 30, 0.15);
+  border-color: #CB90ED;
+}
+
+.what-do-slide .stat-item:hover::before {
+  transform: scaleX(1);
+}
+
+.what-do-slide .stat-number {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #CB90ED 0%, #9B6BC7 50%, #CB90ED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 2px 4px rgba(203, 144, 237, 0.3);
+}
+
+.what-do-slide .stat-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0D0106;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* Who Are Weirdos Slide */
@@ -1234,12 +1505,12 @@ body::-webkit-scrollbar {
   .slide-navigation {
     right: var(--spacing-md);
   }
-  
+
   /* Mobile navigation adjustments */
   .nav-menu {
     gap: var(--spacing-md);
   }
-  
+
   .dropdown-menu {
     right: 0;
     left: auto;
@@ -1251,51 +1522,155 @@ body::-webkit-scrollbar {
   .nav-container {
     padding: 0 var(--spacing-md);
   }
-  
+
   .nav-menu {
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
   }
-  
+
   .nav-link {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
-  
+
   .dropdown-arrow {
     display: none;
   }
-  
+
   .slide-content {
     padding: 0 var(--spacing-md);
   }
-  
+
   .services-grid, .offers-grid, .features-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
+  /* What Do Weirdos Do Slide - Mobile */
+  .what-do-slide .services-showcase {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-md);
+    justify-items: start;
+    align-items: start;
+  }
+
+  .what-do-slide .services-showcase .service-card:nth-child(2) {
+    margin-top: 0;
+  }
+
+  .what-do-slide .service-card {
+    padding: var(--spacing-lg);
+    margin: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .what-do-slide .service-card:hover {
+    transform: translateY(-8px) scale(1.01);
+  }
+
+  .what-do-slide .slide-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .what-do-slide .slide-title {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+    margin-left: var(--spacing-md);
+    margin-bottom: 0.3rem;
+  }
+
+  .what-do-slide .slide-subtitle {
+    font-size: clamp(0.95rem, 3.5vw, 1.3rem);
+    margin-bottom: var(--spacing-sm);
+    margin-left: var(--spacing-md);
+  }
+
+  .what-do-slide .services-stats {
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-md);
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .what-do-slide .stat-item {
+    padding: var(--spacing-md);
+    min-width: 95px;
+  }
+
+  .what-do-slide .stat-number {
+    font-size: 1.9rem;
+  }
+
+  .what-do-slide .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .what-do-slide .icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .what-do-slide .icon {
+    font-size: 1.9rem;
+  }
+
+  .what-do-slide .service-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .what-do-slide .service-card p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .what-do-slide .feature-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
   .pricing-card.featured {
     transform: none;
   }
-  
+
   .pricing-card:hover {
     transform: translateY(-4px);
   }
-  
+
   .pricing-card.featured:hover {
     transform: translateY(-4px);
   }
-  
+
   .timeline-item {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .metrics {
     justify-content: center;
   }
-  
+
   .slide-navigation {
-    display: none;
+    right: var(--spacing-sm);
   }
-} 
+}
+
+.what-do-slide .icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+.what-do-slide .service-content {
+  text-align: left;
+}
+
+.what-do-slide .service-card p {
+  color: #2A2A2A !important;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+  font-weight: 500;
+}

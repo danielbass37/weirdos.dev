@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import blackSimpleLogo from '../assets/logos/black simple.png'
-import pinkSimpleLogo from '../assets/logos/pink simple.png'
-import greenSimpleLogo from '../assets/logos/green simple.png'
-import whiteSimpleLogo from '../assets/logos/white simple.png'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import blackSimpleLogo from '../../assets/logos/black simple.png'
+import greenSimpleLogo from '../../assets/logos/green simple.png'
 
 const Navbar = ({ currentSlide = 0 }) => {
   const [scrolled, setScrolled] = useState(false)
@@ -73,7 +71,7 @@ const Navbar = ({ currentSlide = 0 }) => {
 
   const handleLogoClick = (e) => {
     e.preventDefault()
-    
+
     if (location.pathname === '/') {
       // If on home page, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -109,32 +107,32 @@ const Navbar = ({ currentSlide = 0 }) => {
   }
 
   return (
-    <motion.nav 
+    <motion.nav
       className={`navbar slide-nav-${currentSlide} ${scrolled ? 'scrolled' : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      style={{ 
+      style={{
         backgroundColor: navStyles.background,
-        color: navStyles.textColor 
+        color: navStyles.textColor
       }}
     >
       <div className="nav-container">
         <a href="/" onClick={handleLogoClick} className="nav-logo" style={{ color: navStyles.textColor }}>
           <img src={navStyles.logo} alt="Weirdos.dev" className="logo-image" />
         </a>
-        
+
         <div className="nav-menu">
           <div className="nav-dropdown">
-            <button 
-              onClick={() => scrollToSection('what-do-weirdos-do')} 
+            <button
+              onClick={() => scrollToSection('what-do-weirdos-do')}
               className="nav-link dropdown-trigger"
               style={{ color: navStyles.textColor }}
             >
               <span className="nav-prefix" style={{ color: navStyles.prefixColor }}>&gt;_</span> What Do Weirdos Do?
               <span className="dropdown-arrow">▼</span>
             </button>
-            
+
             <div className="dropdown-menu">
               <Link to="/conferences" className="dropdown-link">
                 Conferences
@@ -147,25 +145,25 @@ const Navbar = ({ currentSlide = 0 }) => {
               </Link>
             </div>
           </div>
-          
-          <button 
-            onClick={() => scrollToSection('who-are-weirdos')} 
+
+          <button
+            onClick={() => scrollToSection('who-are-weirdos')}
             className="nav-link"
             style={{ color: navStyles.textColor }}
           >
             <span className="nav-prefix" style={{ color: navStyles.prefixColor }}>&gt;_</span> Who are the Weirdos?
           </button>
-          
-          <button 
-            onClick={() => scrollToSection('pricing')} 
+
+          <button
+            onClick={() => scrollToSection('pricing')}
             className="nav-link"
             style={{ color: navStyles.textColor }}
           >
             <span className="nav-prefix" style={{ color: navStyles.prefixColor }}>&gt;_</span> Pricing
           </button>
-          
-          <button 
-            onClick={() => scrollToSection('contact')} 
+
+          <button
+            onClick={() => scrollToSection('contact')}
             className="nav-link"
             style={{ color: navStyles.textColor }}
           >
@@ -177,4 +175,4 @@ const Navbar = ({ currentSlide = 0 }) => {
   )
 }
 
-export default Navbar 
+export default Navbar
