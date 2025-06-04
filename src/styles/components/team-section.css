@@ -95,6 +95,64 @@
 }
 
 /* ========================================
+   MOBILE CLICKABLE LINKS
+   ======================================== */
+.mobile-member-link {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  margin: -var(--spacing-sm); /* Negative margin to expand clickable area */
+
+  /* Visual indicator that it's clickable */
+  outline: 2px solid transparent;
+  transition: outline-color var(--transition-fast);
+}
+
+/* Focus state for accessibility (keyboard navigation) */
+.mobile-member-link:focus {
+  outline-color: var(--color-lime);
+  outline-offset: 2px;
+}
+
+/* Active state - when actually being tapped */
+.mobile-member-link:active {
+  background: rgba(220, 240, 30, 0.15);
+  transform: scale(0.98); /* Slight scale down to indicate press */
+}
+
+.mobile-member-link img {
+  flex-shrink: 0;
+}
+
+.mobile-member-link .member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 140px; /* Match image height for proper alignment */
+  text-align: left;
+}
+
+.mobile-member-link .member-name,
+.mobile-member-link .member-title {
+  transition: all var(--transition-fast);
+}
+
+.mobile-member-link:hover .member-name {
+  color: var(--color-lime);
+}
+
+.mobile-member-link:hover .member-title {
+  color: var(--color-cream);
+}
+
+/* ========================================
    RESPONSIVE TEAM SECTION
    ======================================== */
 /* Tablet styles */
@@ -189,6 +247,11 @@
   .linkedin-icon {
     display: none;
   }
+
+  /* Mobile clickable link adjustments */
+  .mobile-member-link .member-info {
+    height: 140px; /* Match mobile image height */
+  }
 }
 
 /* Small mobile styles */
@@ -213,5 +276,10 @@
 
   .team-member .member-title {
     font-size: clamp(1.1rem, 5vw, 1.3rem);
+  }
+
+  /* Mobile clickable link adjustments for small screens */
+  .mobile-member-link .member-info {
+    height: 120px; /* Match smaller mobile image height */
   }
 }
