@@ -1,0 +1,110 @@
+/* ========================================
+   SLIDE NAVIGATION DOTS
+   ======================================== */
+
+.slide-navigation {
+  position: fixed;
+  right: var(--spacing-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-navigation);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.slide-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-light);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.slide-dot:hover {
+  border-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.slide-dot.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.slide-dot.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* ========================================
+   SLIDE-SPECIFIC DOT COLORS
+   ======================================== */
+/* Slide 0 (Hello) */
+.slide-nav-0 .slide-dot {
+  border-color: var(--color-pink-alt);
+}
+
+.slide-nav-0 .slide-dot.active {
+  background: var(--color-pink-alt);
+  border-color: var(--color-pink-alt);
+  box-shadow: 0 0 20px rgba(255, 136, 215, 0.4);
+}
+
+/* Slide 1 (Hero) */
+.slide-nav-1 .slide-dot {
+  border-color: var(--color-black);
+}
+
+.slide-nav-1 .slide-dot.active {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  box-shadow: 0 0 20px rgba(13, 1, 6, 0.4);
+}
+
+/* Slide 2 (Who Are) */
+.slide-nav-2 .slide-dot {
+  border-color: var(--color-lime);
+}
+
+.slide-nav-2 .slide-dot.active {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  box-shadow: 0 0 20px rgba(220, 240, 30, 0.4);
+}
+
+/* Slide 3 (Contact) */
+.slide-nav-3 .slide-dot {
+  border-color: var(--color-pink-alt);
+}
+
+.slide-nav-3 .slide-dot.active {
+  background: var(--color-pink-alt);
+  border-color: var(--color-pink-alt);
+  box-shadow: 0 0 20px rgba(255, 136, 215, 0.4);
+}
+
+/* ========================================
+   RESPONSIVE SLIDE NAVIGATION
+   ======================================== */
+@media (max-width: 1024px) {
+  .slide-navigation {
+    right: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-navigation {
+    right: var(--spacing-sm);
+  }
+}

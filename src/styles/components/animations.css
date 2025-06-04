@@ -1,0 +1,55 @@
+/* ========================================
+   SCROLL INDICATORS
+   ======================================== */
+
+.scroll-arrow {
+  font-size: 2rem;
+  margin-top: var(--spacing-md);
+  animation: bounce 2s infinite;
+  color: var(--color-lime);
+}
+
+.hello-slide .scroll-arrow {
+  color: var(--color-pink-alt);
+}
+
+.hero-slide .scroll-arrow {
+  color: var(--color-black);
+}
+
+.who-are-slide .scroll-arrow,
+.contact-slide .scroll-arrow {
+  color: var(--color-lime);
+}
+
+.scroll-indicator {
+  margin-top: var(--spacing-3xl);
+  color: var(--text-secondary);
+  animation: float 3s ease-in-out infinite;
+  text-align: center;
+  width: 100%;
+}
+
+/* ========================================
+   KEYFRAME ANIMATIONS
+   ======================================== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

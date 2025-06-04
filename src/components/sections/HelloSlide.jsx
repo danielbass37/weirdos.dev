@@ -1,11 +1,30 @@
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import helloImage from '../../assets/logos/hello.png'
+import helloMobileImage from '../../assets/logos/hellomobile.png'
 
 /**
  * Hello Slide Component
  * First slide with hello image and scroll indicator
+ * Uses different images for desktop and mobile
  */
 const HelloSlide = ({ variants }) => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    // Check on mount
+    checkIsMobile()
+
+    // Listen for resize events
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
+
   return (
     <motion.section
       id='hello'
@@ -17,7 +36,7 @@ const HelloSlide = ({ variants }) => {
     >
       <div className='slide-content'>
         <img
-          src={helloImage}
+          src={isMobile ? helloMobileImage : helloImage}
           alt='Hello!'
           className='hello-image'
           loading='eager'

@@ -1,0 +1,217 @@
+/* ========================================
+   TEAM MEMBERS SECTION
+   ======================================== */
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+  margin-left: var(--spacing-lg);
+}
+
+.team-member {
+  background: transparent;
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--color-lime);
+  transition: all var(--transition-normal);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.team-member:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(220, 240, 30, 0.3);
+  border-color: var(--color-lime);
+  background: rgba(220, 240, 30, 0.05);
+}
+
+.team-member img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: var(--spacing-lg);
+  border: 3px solid var(--color-lime);
+  align-self: center;
+}
+
+.team-member .member-info {
+  width: 100%;
+  text-align: left;
+}
+
+.team-member .member-name {
+  color: var(--color-lime);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  margin-bottom: -0.4rem;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.team-member .member-title {
+  color: var(--color-cream);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.team-member .member-title .title-prompt {
+  color: var(--color-lime);
+}
+
+/* ========================================
+   LINKEDIN ICON
+   ======================================== */
+.linkedin-icon {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  transition: all var(--transition-normal);
+  opacity: 0.7;
+  z-index: var(--z-overlay);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.linkedin-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(220, 240, 30, 0.3);
+}
+
+.linkedin-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+}
+
+/* ========================================
+   RESPONSIVE TEAM SECTION
+   ======================================== */
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .team-members {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-left: var(--spacing-md);
+  }
+
+  .team-member {
+    padding: var(--spacing-lg);
+  }
+
+  .team-member img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  /* Improve subtitle spacing and size */
+  .who-are-slide .slide-subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.4rem) !important;
+    margin-top: var(--spacing-lg) !important;
+    margin-bottom: var(--spacing-2xl) !important;
+  }
+
+  .team-members {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    margin-left: 0;
+    margin-top: var(--spacing-xl);
+  }
+
+  .team-member {
+    /* Remove card styling */
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 var(--spacing-lg);
+
+    /* Change to horizontal layout with proper alignment */
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-xl);
+
+    /* Remove hover effects */
+    transition: none;
+  }
+
+  .team-member:hover {
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .team-member img {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .team-member .member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 140px; /* Match image height for proper alignment */
+    text-align: left;
+  }
+
+  .team-member .member-name {
+    font-size: clamp(1.7rem, 6vw, 2rem);
+    text-align: left;
+    margin-bottom: 0;
+    line-height: 1.1;
+    align-self: flex-start; /* Align to top */
+  }
+
+  .team-member .member-title {
+    font-size: clamp(1.2rem, 4vw, 1.4rem);
+    text-align: left;
+    margin-top: auto; /* Push to bottom */
+    align-self: flex-start;
+  }
+
+  /* Hide LinkedIn icons on mobile for cleaner layout */
+  .linkedin-icon {
+    display: none;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .team-member {
+    margin: 0 var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  .team-member img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .team-member .member-info {
+    height: 120px; /* Match smaller image height */
+  }
+
+  .team-member .member-name {
+    font-size: clamp(1.6rem, 8vw, 2.7rem);
+  }
+
+  .team-member .member-title {
+    font-size: clamp(1.1rem, 5vw, 1.3rem);
+  }
+}

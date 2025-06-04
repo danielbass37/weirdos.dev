@@ -6,6 +6,7 @@ import greenSimpleLogo from '../../assets/logos/green simple.png'
 
 const Navbar = ({ currentSlide = 0 }) => {
   const [scrolled, setScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -62,6 +63,20 @@ const Navbar = ({ currentSlide = 0 }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    // Check on mount
+    checkIsMobile()
+
+    // Listen for resize events
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
+
   const handleLogoClick = e => {
     e.preventDefault()
 
@@ -99,6 +114,11 @@ const Navbar = ({ currentSlide = 0 }) => {
     }
   }
 
+  // Define button text based on screen size
+  const getButtonText = (desktop, mobile) => {
+    return isMobile ? mobile : desktop
+  }
+
   return (
     <motion.nav
       className={`navbar slide-nav-${currentSlide} ${scrolled ? 'scrolled' : ''}`}
@@ -132,7 +152,7 @@ const Navbar = ({ currentSlide = 0 }) => {
             >
               &gt;_
             </span>{' '}
-            What is this?
+            {getButtonText('What is this?', 'What?')}
           </button>
 
           <button
@@ -146,7 +166,7 @@ const Navbar = ({ currentSlide = 0 }) => {
             >
               &gt;_
             </span>{' '}
-            Who are the Weirdos?
+            {getButtonText('Who are the Weirdos?', 'Who?')}
           </button>
 
           <button
@@ -160,7 +180,7 @@ const Navbar = ({ currentSlide = 0 }) => {
             >
               &gt;_
             </span>{' '}
-            Talk to a Weirdo
+            {getButtonText('Talk to a Weirdo', 'Talk')}
           </button>
         </div>
       </div>
