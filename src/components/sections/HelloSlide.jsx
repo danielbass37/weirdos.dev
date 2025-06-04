@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import React from 'react'
 import helloImage from '../../assets/logos/hello.png'
 
 /**
@@ -9,22 +8,22 @@ import helloImage from '../../assets/logos/hello.png'
 const HelloSlide = ({ variants }) => {
   return (
     <motion.section
-      id="hello"
-      className="slide hello-slide"
-      initial="hidden"
-      whileInView="visible"
+      id='hello'
+      className='slide hello-slide'
+      initial='hidden'
+      whileInView='visible'
       viewport={{ once: true, amount: 0.6 }}
       variants={variants}
     >
-      <div className="slide-content">
+      <div className='slide-content'>
         <img
           src={helloImage}
-          alt="Hello!"
-          className="hello-image"
-          loading="eager"
+          alt='Hello!'
+          className='hello-image'
+          loading='eager'
         />
-        <div className="scroll-indicator">
-          <div className="scroll-arrow">▼</div>
+        <div className='scroll-indicator'>
+          <div className='scroll-arrow'>▼</div>
         </div>
       </div>
     </motion.section>

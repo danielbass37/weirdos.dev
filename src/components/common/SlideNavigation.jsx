@@ -1,10 +1,13 @@
-import React from 'react'
-
 /**
  * Slide Navigation Component
  * Displays navigation dots for slides
  */
-const SlideNavigation = ({ slides, currentSlide, onSlideChange, className = '' }) => {
+const SlideNavigation = ({
+  slides,
+  currentSlide,
+  onSlideChange,
+  className = '',
+}) => {
   return (
     <div className={`slide-navigation slide-nav-${currentSlide} ${className}`}>
       {slides.map((slide, index) => (

@@ -1,15 +1,20 @@
 import { useCallback, useEffect, useState } from 'react'
 import { HOME_SLIDES, SLIDE_CONFIG } from '../constants/slides'
-import { getCurrentSlideFromScroll, scrollToElement } from '../utils/scrollUtils'
+import {
+  debounce,
+  getCurrentSlideFromScroll,
+  scrollToElement,
+} from '../utils/scrollUtils'
 
 /**
  * Custom hook for managing slide navigation
  * @param {Function} setParentCurrentSlide - Callback to update parent component slide state
  * @returns {Object} - Slide navigation state and handlers
  */
-export const useSlideNavigation = (setParentCurrentSlide) => {
+export const useSlideNavigation = setParentCurrentSlide => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
+  const [lastWheelTime, setLastWheelTime] = useState(0)
 
   // Update parent component when slide changes
   useEffect(() => {
@@ -19,77 +24,119 @@ export const useSlideNavigation = (setParentCurrentSlide) => {
   }, [currentSlide, setParentCurrentSlide])
 
   // Function to go to a specific slide
-  const goToSlide = useCallback((slideIndex) => {
-    if (slideIndex >= 0 && slideIndex < HOME_SLIDES.length) {
-      setCurrentSlide(slideIndex)
-      scrollToElement(HOME_SLIDES[slideIndex])
-    }
-  }, [])
+  const goToSlide = useCallback(
+    slideIndex => {
+      if (
+        slideIndex >= 0 &&
+        slideIndex < HOME_SLIDES.length &&
+        slideIndex !== currentSlide
+      ) {
+        setCurrentSlide(slideIndex)
+        setIsScrolling(true)
+        scrollToElement(HOME_SLIDES[slideIndex])
+
+        // Reset scrolling state after animation
+        setTimeout(() => {
+          setIsScrolling(false)
+        }, SLIDE_CONFIG.SCROLL_ANIMATION_DURATION)
+      }
+    },
+    [currentSlide]
+  )
 
   // Function to update current slide based on scroll position
   const updateCurrentSlideFromScroll = useCallback(() => {
     if (!isScrolling) {
       const newSlide = getCurrentSlideFromScroll(HOME_SLIDES)
-      setCurrentSlide(newSlide)
+      if (newSlide !== currentSlide) {
+        setCurrentSlide(newSlide)
+      }
     }
-  }, [isScrolling])
+  }, [isScrolling, currentSlide])
 
-  // Handle wheel scroll navigation
-  const handleWheel = useCallback((e) => {
-    if (isScrolling) return
+  // Debounced scroll handler to avoid too many updates
+  const debouncedScrollHandler = useCallback(
+    () =>
+      debounce(
+        updateCurrentSlideFromScroll,
+        SLIDE_CONFIG.SCROLL_DEBOUNCE_DELAY
+      )(),
+    [updateCurrentSlideFromScroll]
+  )
 
-    e.preventDefault()
+  // Handle wheel scroll navigation with improved timing
+  const handleWheel = useCallback(
+    e => {
+      const now = Date.now()
 
-    const delta = e.deltaY
-    let newSlide = currentSlide
+      // Prevent too rapid wheel events
+      if (now - lastWheelTime < 150) {
+        e.preventDefault()
+        return
+      }
 
-    if (delta > 0 && currentSlide < HOME_SLIDES.length - 1) {
-      newSlide = currentSlide + 1
-    } else if (delta < 0 && currentSlide > 0) {
-      newSlide = currentSlide - 1
-    }
+      if (isScrolling) {
+        e.preventDefault()
+        return
+      }
 
-    if (newSlide !== currentSlide) {
-      setIsScrolling(true)
-      goToSlide(newSlide)
+      const delta = e.deltaY
+      let newSlide = currentSlide
 
-      setTimeout(() => {
-        setIsScrolling(false)
-      }, SLIDE_CONFIG.SCROLL_ANIMATION_DURATION)
-    }
-  }, [currentSlide, isScrolling, goToSlide])
+      // Only handle significant scroll deltas to avoid accidental triggers
+      if (Math.abs(delta) > 10) {
+        if (delta > 0 && currentSlide < HOME_SLIDES.length - 1) {
+          newSlide = currentSlide + 1
+        } else if (delta < 0 && currentSlide > 0) {
+          newSlide = currentSlide - 1
+        }
+
+        // Prevent default scroll behavior for any wheel event within slides
+        // This includes attempts to scroll beyond boundaries
+        e.preventDefault()
+
+        if (newSlide !== currentSlide) {
+          setLastWheelTime(now)
+          goToSlide(newSlide)
+        }
+      }
+    },
+    [currentSlide, isScrolling, goToSlide, lastWheelTime]
+  )
 
   // Handle keyboard navigation
-  const handleKeyDown = useCallback((e) => {
-    if (isScrolling) return
+  const handleKeyDown = useCallback(
+    e => {
+      if (isScrolling) return
 
-    let newSlide = currentSlide
+      let newSlide = currentSlide
 
-    if ((e.key === 'ArrowDown' || e.key === ' ') && currentSlide < HOME_SLIDES.length - 1) {
-      e.preventDefault()
-      newSlide = currentSlide + 1
-    } else if (e.key === 'ArrowUp' && currentSlide > 0) {
-      e.preventDefault()
-      newSlide = currentSlide - 1
-    }
+      if (
+        (e.key === 'ArrowDown' || e.key === ' ') &&
+        currentSlide < HOME_SLIDES.length - 1
+      ) {
+        e.preventDefault()
+        newSlide = currentSlide + 1
+      } else if (e.key === 'ArrowUp' && currentSlide > 0) {
+        e.preventDefault()
+        newSlide = currentSlide - 1
+      }
 
-    if (newSlide !== currentSlide) {
-      setIsScrolling(true)
-      goToSlide(newSlide)
+      if (newSlide !== currentSlide) {
+        goToSlide(newSlide)
+      }
+    },
+    [currentSlide, isScrolling, goToSlide]
+  )
 
-      setTimeout(() => {
-        setIsScrolling(false)
-      }, SLIDE_CONFIG.SCROLL_ANIMATION_DURATION)
-    }
-  }, [currentSlide, isScrolling, goToSlide])
-
-  // Handle regular scroll events
+  // Handle regular scroll events (for manual scrolling)
   const handleScroll = useCallback(() => {
-    updateCurrentSlideFromScroll()
-  }, [updateCurrentSlideFromScroll])
+    debouncedScrollHandler()
+  }, [debouncedScrollHandler])
 
   // Set up event listeners
   useEffect(() => {
+    // Use passive: false for wheel to allow preventDefault
     window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -117,6 +164,6 @@ export const useSlideNavigation = (setParentCurrentSlide) => {
     currentSlide,
     slides: HOME_SLIDES,
     goToSlide,
-    isScrolling
+    isScrolling,
   }
 }

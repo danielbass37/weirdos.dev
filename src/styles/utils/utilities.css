@@ -129,7 +129,6 @@
 /* Overflow Utilities */
 .overflow-hidden { overflow: hidden; }
 .overflow-auto { overflow: auto; }
-.overflow-scroll { overflow: scroll; }
 
 /* Cursor Utilities */
 .cursor-pointer { cursor: pointer; }
