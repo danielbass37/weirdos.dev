@@ -37,7 +37,7 @@ const Home = ({ setCurrentSlide: setParentCurrentSlide }) => {
             We do developer marketing.
           </h1>
           <p className='slide-subtitle'>
-            &gt;_ we do ad campaigns, product lauches, and conference booths with <span className='highlight'>actual deliverables</span> and <span className='highlight'>measurable results</span>.
+            &gt;_ we do ad campaigns, and conference booths with <span className='highlight'>actual deliverables</span> and <span className='highlight'>measurable results</span>.
           </p>
           <div className='scroll-indicator'>
             <div className='scroll-arrow'>▼</div>
