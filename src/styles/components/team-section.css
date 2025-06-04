@@ -184,7 +184,7 @@
 
   .team-members {
     grid-template-columns: 1fr;
-    gap: var(--spacing-2xl);
+    gap: var(--spacing-lg); /* Reduced from var(--spacing-2xl) to fit better on mobile */
     margin-left: 0;
     margin-top: var(--spacing-xl);
   }
@@ -256,6 +256,10 @@
 
 /* Small mobile styles */
 @media (max-width: 480px) {
+  .team-members {
+    gap: var(--spacing-md); /* Even smaller gap for very small screens */
+  }
+
   .team-member {
     margin: 0 var(--spacing-md);
     gap: var(--spacing-lg);
